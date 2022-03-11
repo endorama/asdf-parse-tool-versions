@@ -1,6 +1,67 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 430:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseToolVersions = void 0;
+const readline_1 = __importDefault(__nccwpck_require__(58));
+const fs_1 = __importDefault(__nccwpck_require__(747));
+function parseToolVersions(file) {
+    var e_1, _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        // const content = fs.readFileSync(file, 'utf8')
+        const readInterface = readline_1.default.createInterface({
+            input: fs_1.default.createReadStream(file),
+            crlfDelay: Infinity
+        });
+        const tools = new Map();
+        try {
+            for (var readInterface_1 = __asyncValues(readInterface), readInterface_1_1; readInterface_1_1 = yield readInterface_1.next(), !readInterface_1_1.done;) {
+                const line = readInterface_1_1.value;
+                const tool = line.split(' ');
+                if (tool[0].length != 0) {
+                    tools.set(tool[0], tool[1]);
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (readInterface_1_1 && !readInterface_1_1.done && (_a = readInterface_1.return)) yield _a.call(readInterface_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return tools;
+    });
+}
+exports.parseToolVersions = parseToolVersions;
+
+
+/***/ }),
+
 /***/ 109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -34,18 +95,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const wait_1 = __nccwpck_require__(817);
+const path_1 = __importDefault(__nccwpck_require__(622));
+const asdf_1 = __nccwpck_require__(430);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('milliseconds');
-            core.debug(`Waiting ${ms} milliseconds ...`); // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
-            core.debug(new Date().toTimeString());
-            yield (0, wait_1.wait)(parseInt(ms, 10));
-            core.debug(new Date().toTimeString());
-            core.setOutput('time', new Date().toTimeString());
+            const file = path_1.default.join(process.cwd(), '.tool-versions');
+            core.debug(file);
+            const tools = yield (0, asdf_1.parseToolVersions)(file);
+            core.warning('All found versions are exported to env variables');
+            core.startGroup('.tool-versions');
+            for (const [key, value] of tools) {
+                core.info(`Gathered '${key}' version ${value}`);
+                core.info(`Exported as ${key.toUpperCase()}_VERSION`);
+                core.exportVariable(`${key.toUpperCase()}_VERSION`, value);
+            }
+            core.endGroup();
+            core.setOutput('tools', JSON.stringify(Object.fromEntries(tools)));
         }
         catch (error) {
             if (error instanceof Error)
@@ -54,37 +125,6 @@ function run() {
     });
 }
 run();
-
-
-/***/ }),
-
-/***/ 817:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = void 0;
-function wait(milliseconds) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise(resolve => {
-            if (isNaN(milliseconds)) {
-                throw new Error('milliseconds not a number');
-            }
-            setTimeout(() => resolve('done!'), milliseconds);
-        });
-    });
-}
-exports.wait = wait;
 
 
 /***/ }),
@@ -1704,6 +1744,14 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 58:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("readline");
 
 /***/ }),
 
