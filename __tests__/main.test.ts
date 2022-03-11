@@ -1,7 +1,7 @@
 import * as path from 'path'
-import { expect, test } from '@jest/globals'
+import {expect, test} from '@jest/globals'
 
-import { parseToolVersions } from '../src/asdf'
+import {parseToolVersions} from '../src/asdf'
 
 test('parse a file', async () => {
   const tools = await parseToolVersions(path.join(__dirname, 'tool-versions'))

@@ -1,7 +1,6 @@
 import * as core from '@actions/core'
+import {parseToolVersions} from './asdf'
 import path from 'path'
-import { parseToolVersions } from './asdf'
-
 
 async function run(): Promise<void> {
   try {

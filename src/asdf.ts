@@ -1,5 +1,5 @@
-import readline from 'readline'
 import fs from 'fs'
+import readline from 'readline'
 
 export async function parseToolVersions(
   file: string
@@ -14,11 +14,10 @@ export async function parseToolVersions(
   const tools = new Map<string, string>()
   for await (const line of readInterface) {
     const tool = line.split(' ')
-    if (tool[0].length != 0) {
+    if (tool[0].length !== 0) {
       tools.set(tool[0], tool[1])
     }
   }
 
   return tools
 }
-
