@@ -1,16 +1,24 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import path from 'path'
+import { parseToolVersions } from './asdf'
+
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const file = path.join(process.cwd(), '.tool-versions')
+    core.debug(file)
+    const tools = await parseToolVersions(file)
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    core.warning('All found versions are exported to env variables')
+    core.startGroup('.tool-versions')
+    for (const [key, value] of tools) {
+      core.info(`Gathered '${key}' version ${value}`)
+      core.info(`Exported as ${key.toUpperCase()}_VERSION`)
+      core.exportVariable(`${key.toUpperCase()}_VERSION`, value)
+    }
+    core.endGroup()
 
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('tools', JSON.stringify(Object.fromEntries(tools)))
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

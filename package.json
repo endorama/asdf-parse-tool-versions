@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "asdf-parse-tool-versions",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Parse asdf.sh tool-versions file to reuse version information in GitHub Actions",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -20,15 +20,16 @@
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "asdf",
+    "versions"
   ],
-  "author": "",
+  "author": "Edoardo Tenani",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0"
   },
   "devDependencies": {
-    "@types/node": "^16.10.5",
+    "@types/node": "^16.11.26",
     "@typescript-eslint/parser": "^5.8.1",
     "@vercel/ncc": "^0.31.1",
     "eslint": "^7.32.0",
