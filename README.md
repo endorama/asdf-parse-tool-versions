@@ -1,105 +1,52 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+<a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 
-# Create a JavaScript Action using TypeScript
+# asdf-parse-tool-versions
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+Parses asdf [.tool-versions](http://asdf-vm.com/manage/configuration.html#tool-versions) file extracting version information.
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+Returns a JSON string as output with this format: 
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
-
-Install the dependencies  
-```bash
-$ npm install
+```
+{"golang":"1.12.5","ruby":"2.7.0"}
 ```
 
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
+Each tool has it's own key where value is the value in the `.tool-versions` file.
+
+The action also exports all versions as environment variables with the format `<tool>_VERSION` (i.e. `GOLANG_VERSION`).
+
+## Usage
+
 ```
+---
+name: run on master
 
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
+on:
+  push:
+    branches:
+      - main
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-...
-```
+      - name: gather versions
+        uses: endorama/asdf-parse-tool-versions@v1
+        id: versions
 
-## Change action.yml
+      - name: install Go
+        uses: actions/setup-go@v1
+        with: 
+          go-version: "${{ env.GOLANG_VERSION }}"
 
-The action.yml defines the inputs and output for your action.
+      # OR using action output
+      - name: install Go
+        uses: actions/setup-go@v1
+        with: 
+          go-version: "${{ steps.versions.outputs.tools.golang }}"
 
-Update the action.yml with your name, description, inputs and outputs for your action.
+      # ...
+``` 
 
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
