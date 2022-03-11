@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseToolVersions = void 0;
-const readline_1 = __importDefault(__nccwpck_require__(58));
 const fs_1 = __importDefault(__nccwpck_require__(747));
+const readline_1 = __importDefault(__nccwpck_require__(58));
 function parseToolVersions(file) {
     var e_1, _a;
     return __awaiter(this, void 0, void 0, function* () {
@@ -42,7 +42,7 @@ function parseToolVersions(file) {
             for (var readInterface_1 = __asyncValues(readInterface), readInterface_1_1; readInterface_1_1 = yield readInterface_1.next(), !readInterface_1_1.done;) {
                 const line = readInterface_1_1.value;
                 const tool = line.split(' ');
-                if (tool[0].length != 0) {
+                if (tool[0].length !== 0) {
                     tools.set(tool[0], tool[1]);
                 }
             }
@@ -100,8 +100,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const path_1 = __importDefault(__nccwpck_require__(622));
 const asdf_1 = __nccwpck_require__(430);
+const path_1 = __importDefault(__nccwpck_require__(622));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
