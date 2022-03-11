@@ -5,3 +5,6 @@ author: 'Edoardo Tenani'
 runs:
   using: 'node16'
   main: 'dist/index.js'
+branding:
+  icon: 'file-text'
+  color: 'purple'
