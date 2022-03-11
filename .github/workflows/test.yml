@@ -20,3 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: versions
+
+      - run: echo "${{ env.NODEJS_VERSION }}"
+      - run: echo "${{ steps.versions.outputs.tools.nodejs }}"
