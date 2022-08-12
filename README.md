@@ -16,7 +16,7 @@ The action also exports all versions as environment variables with the format `<
 
 ## Usage
 
-```
+```yaml
 ---
 name: run on master
 
