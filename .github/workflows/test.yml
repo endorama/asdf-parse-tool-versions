@@ -23,4 +23,4 @@ jobs:
         id: versions
 
       - run: echo "${{ env.NODEJS_VERSION }}"
-      - run: echo "${{ steps.versions.outputs.tools.nodejs }}"
+      - run: echo "${{ fromJson(steps.versions.outputs.tools).nodejs }}"
