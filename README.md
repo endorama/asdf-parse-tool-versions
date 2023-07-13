@@ -45,7 +45,7 @@ jobs:
       - name: install Go
         uses: actions/setup-go@v1
         with: 
-          go-version: "${{ steps.versions.outputs.tools.golang }}"
+          go-version: ${{ fromJSON(steps.versions.outputs.tools).golang }}
 
       # ...
 ``` 
