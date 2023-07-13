@@ -30,7 +30,7 @@ exports.parseToolVersions = void 0;
 const fs_1 = __importDefault(__nccwpck_require__(147));
 const readline_1 = __importDefault(__nccwpck_require__(521));
 function parseToolVersions(file) {
-    var e_1, _a;
+    var _a, e_1, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         // const content = fs.readFileSync(file, 'utf8')
         const readInterface = readline_1.default.createInterface({
@@ -39,18 +39,25 @@ function parseToolVersions(file) {
         });
         const tools = new Map();
         try {
-            for (var readInterface_1 = __asyncValues(readInterface), readInterface_1_1; readInterface_1_1 = yield readInterface_1.next(), !readInterface_1_1.done;) {
-                const line = readInterface_1_1.value;
-                const tool = line.split(' ');
-                if (tool[0].length !== 0) {
-                    tools.set(tool[0], tool[1]);
+            for (var _d = true, readInterface_1 = __asyncValues(readInterface), readInterface_1_1; readInterface_1_1 = yield readInterface_1.next(), _a = readInterface_1_1.done, !_a;) {
+                _c = readInterface_1_1.value;
+                _d = false;
+                try {
+                    const line = _c;
+                    const tool = line.split(' ');
+                    if (tool[0].length !== 0) {
+                        tools.set(tool[0], tool[1]);
+                    }
+                }
+                finally {
+                    _d = true;
                 }
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (readInterface_1_1 && !readInterface_1_1.done && (_a = readInterface_1.return)) yield _a.call(readInterface_1);
+                if (!_d && !_a && (_b = readInterface_1.return)) yield _b.call(readInterface_1);
             }
             finally { if (e_1) throw e_1.error; }
         }
