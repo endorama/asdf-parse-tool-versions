@@ -3,7 +3,7 @@ description: 'Parse asdf.sh tool-versions file to reuse version information in G
 author: 'Edoardo Tenani'
 # inputs:
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'file-text'
