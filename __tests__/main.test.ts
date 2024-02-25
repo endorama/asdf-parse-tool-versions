@@ -1,4 +1,4 @@
-import * as path from 'path'
+import * as path from 'node:path'
 import {expect, test} from '@jest/globals'
 
 import {parseToolVersions} from '../src/asdf'
