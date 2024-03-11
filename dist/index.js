@@ -27,14 +27,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseToolVersions = void 0;
-const fs_1 = __importDefault(__nccwpck_require__(7147));
-const readline_1 = __importDefault(__nccwpck_require__(4521));
+const node_fs_1 = __importDefault(__nccwpck_require__(7561));
+const node_readline_1 = __importDefault(__nccwpck_require__(1747));
 function parseToolVersions(file) {
     var _a, e_1, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         // const content = fs.readFileSync(file, 'utf8')
-        const readInterface = readline_1.default.createInterface({
-            input: fs_1.default.createReadStream(file),
+        const readInterface = node_readline_1.default.createInterface({
+            input: node_fs_1.default.createReadStream(file),
             crlfDelay: Infinity
         });
         const tools = new Map();
@@ -24943,11 +24943,27 @@ module.exports = require("node:events");
 
 /***/ }),
 
+/***/ 7561:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
+
+/***/ }),
+
 /***/ 9411:
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("node:path");
+
+/***/ }),
+
+/***/ 1747:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:readline");
 
 /***/ }),
 
@@ -24996,14 +25012,6 @@ module.exports = require("perf_hooks");
 
 "use strict";
 module.exports = require("querystring");
-
-/***/ }),
-
-/***/ 4521:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("readline");
 
 /***/ }),
 
