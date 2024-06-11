@@ -30,9 +30,9 @@ exports.parseToolVersions = void 0;
 const node_fs_1 = __importDefault(__nccwpck_require__(7561));
 const node_readline_1 = __importDefault(__nccwpck_require__(1747));
 function parseToolVersions(file) {
-    var _a, e_1, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         // const content = fs.readFileSync(file, 'utf8')
+        var _a, e_1, _b, _c;
         const readInterface = node_readline_1.default.createInterface({
             input: node_fs_1.default.createReadStream(file),
             crlfDelay: Infinity
