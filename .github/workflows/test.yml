@@ -1,4 +1,4 @@
-name: 'build-test'
+name: build-test
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
@@ -23,4 +23,15 @@ jobs:
         id: versions
 
       - run: echo "${{ env.NODEJS_VERSION }}"
-      - run: echo "${{ steps.versions.outputs.tools.nodejs }}"
+      - run: echo "${{ fromJSON(steps.versions.outputs.tools).nodejs }}"
+
+      - name: "override tool file with test values"
+        run: cat __tests__/tool-versions > .tool-versions
+      - uses: ./
+        id: custom_versions_file
+      - run: echo "${{ env.GOLANG_VERSION }}"
+      - run: echo "${{ fromJSON(steps.custom_versions_file.outputs.tools).golang }}"
+      - run: echo "${{ env.RUBY_VERSION }}"
+      - run: echo "${{ fromJSON(steps.custom_versions_file.outputs.tools).ruby }}"
+      - run: echo "${{ env.GOLANGCI_LINT_VERSION }}"
+      - run: echo "${{ fromJSON(steps.custom_versions_file.outputs.tools).golangci_lint }}"

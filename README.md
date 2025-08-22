@@ -14,6 +14,8 @@ Each tool has it's own key where value is the value in the `.tool-versions` file
 
 The action also exports all versions as environment variables with the format `<tool>_VERSION` (i.e. `GOLANG_VERSION`).
 
+Please note that _hyphens_ in names are replaced with _underscores_ (i.e. `golanci-lint` becomes `golangci_lint` and `GOLANGCI_LINT_VERSION`)
+
 ## Usage
 
 ```yaml
