@@ -29,5 +29,7 @@ jobs:
         run: cat __tests__/tool-versions > .tool-versions
       - uses: ./
         id: custom_versions_file
-      - run: ./.github/workflows/scripts/test/test-envs.sh
-      - run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file.output.tools }}''
+      - name: "check exported env vars"
+        run: ./.github/workflows/scripts/test/test-envs.sh
+      - name: "check action output JSON"
+        run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file.output.tools }}''
