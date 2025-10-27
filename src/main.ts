@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import {parseToolVersions} from './asdf'
+import { parseToolVersions } from './asdf'
 import path from 'node:path'
 
 async function run(): Promise<void> {
@@ -12,8 +12,9 @@ async function run(): Promise<void> {
     core.startGroup('.tool-versions')
     for (const [key, value] of tools) {
       core.info(`Gathered '${key}' version ${value}`)
-      core.info(`Exported as ${key.toUpperCase()}_VERSION`)
-      core.exportVariable(`${key.toUpperCase()}_VERSION`, value)
+      const envVarName = toEnvVarName(key)
+      core.info(`Exported as ${envVarName}`)
+      core.exportVariable(`${envVarName}`, value)
     }
     core.endGroup()
 
@@ -21,6 +22,10 @@ async function run(): Promise<void> {
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
+}
+
+export function toEnvVarName(name: string): string {
+  return `${name.toUpperCase().replace(/-/g, '_')}_VERSION`
 }
 
 run()

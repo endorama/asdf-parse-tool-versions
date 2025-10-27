@@ -15,9 +15,13 @@ export async function parseToolVersions(
   for await (const line of readInterface) {
     const tool = line.split(' ')
     if (tool[0].length !== 0) {
-      tools.set(tool[0], tool[1])
+      tools.set(sanitizeName(tool[0]), tool[1])
     }
   }
 
   return tools
+}
+
+function sanitizeName(name: string): string {
+  return name.replace(/-/g, '_')
 }
