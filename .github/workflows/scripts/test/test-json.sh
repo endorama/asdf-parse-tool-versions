@@ -28,6 +28,9 @@ fi
 if ! check_json "golangci_lint" "1.64.8"; then
   errors=$((errors + 1))
 fi
+if ! check_json "terraform" "1.13.4"; then
+  errors=$((errors + 1))
+fi
 
 if [[ ! $errors -eq 0 ]]; then
   echo "Some error occurred, test failed"

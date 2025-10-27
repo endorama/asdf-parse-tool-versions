@@ -26,6 +26,9 @@ fi
 if ! checkenv "GOLANGCI_LINT_VERSION" "1.64.8"; then
   errors=$((errors + 1))
 fi
+if ! checkenv "TERRAFORM_VERSION" "1.13.4"; then
+  errors=$((errors + 1))
+fi
 
 if [[ ! $errors -eq 0 ]]; then
   echo "Some error occurred, test failed"

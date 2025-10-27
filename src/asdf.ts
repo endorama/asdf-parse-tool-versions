@@ -13,7 +13,8 @@ export async function parseToolVersions(
 
   const tools = new Map<string, string>()
   for await (const line of readInterface) {
-    const tool = line.split(' ')
+    const simplifiedLine = line.replace(/ +/g, ' ')
+    const tool = simplifiedLine.split(' ')
     if (tool[0].length !== 0) {
       tools.set(sanitizeName(tool[0]), tool[1])
     }
