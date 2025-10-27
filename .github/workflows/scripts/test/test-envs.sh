@@ -26,7 +26,7 @@ fi
 if ! checkenv "GOLANGCI_LINT_VERSION" "1.64.8"; then
   errors=$((errors + 1))
 fi
-if ! checkenv "TERRAFORM" "1.13.4"; then
+if ! checkenv "TERRAFORM_VERSION" "1.13.4"; then
   errors=$((errors + 1))
 fi
 
