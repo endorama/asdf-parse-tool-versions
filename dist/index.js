@@ -43,9 +43,10 @@ function parseToolVersions(file) {
                 _c = readInterface_1_1.value;
                 _d = false;
                 const line = _c;
-                const tool = line.split(' ');
+                const simplifiedLine = line.replace(/ +/g, ' ');
+                const tool = simplifiedLine.split(' ');
                 if (tool[0].length !== 0) {
-                    tools.set(tool[0], tool[1]);
+                    tools.set(sanitizeName(tool[0]), tool[1]);
                 }
             }
         }
@@ -58,6 +59,9 @@ function parseToolVersions(file) {
         }
         return tools;
     });
+}
+function sanitizeName(name) {
+    return name.replace(/-/g, '_');
 }
 
 
@@ -114,6 +118,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.toEnvVarName = toEnvVarName;
 const core = __importStar(__nccwpck_require__(7484));
 const asdf_1 = __nccwpck_require__(1032);
 const node_path_1 = __importDefault(__nccwpck_require__(6760));
@@ -127,8 +132,9 @@ function run() {
             core.startGroup('.tool-versions');
             for (const [key, value] of tools) {
                 core.info(`Gathered '${key}' version ${value}`);
-                core.info(`Exported as ${key.toUpperCase()}_VERSION`);
-                core.exportVariable(`${key.toUpperCase()}_VERSION`, value);
+                const envVarName = toEnvVarName(key);
+                core.info(`Exported as ${envVarName}`);
+                core.exportVariable(`${envVarName}`, value);
             }
             core.endGroup();
             core.setOutput('tools', JSON.stringify(Object.fromEntries(tools)));
@@ -138,6 +144,9 @@ function run() {
                 core.setFailed(error.message);
         }
     });
+}
+function toEnvVarName(name) {
+    return `${name.toUpperCase().replace(/-/g, '_')}_VERSION`;
 }
 run();
 
