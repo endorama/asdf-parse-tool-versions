@@ -24,7 +24,7 @@ async function run(): Promise<void> {
   }
 }
 
-function toEnvVarName(name: string): string {
+export function toEnvVarName(name: string): string {
   return `${name.toUpperCase().replace(/-/g, '_')}_VERSION`
 }
 
