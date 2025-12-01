@@ -4,7 +4,7 @@
 
 Parses asdf [.tool-versions](http://asdf-vm.com/manage/configuration.html#tool-versions) file extracting version information.
 
-Returns a JSON string as output with this format: 
+Returns a JSON string as output with this format:
 
 ```
 {"golang":"1.12.5","ruby":"2.7.0"}
@@ -40,15 +40,22 @@ jobs:
 
       - name: install Go
         uses: actions/setup-go@v1
-        with: 
+        with:
           go-version: "${{ env.GOLANG_VERSION }}"
 
       # OR using action output
       - name: install Go
         uses: actions/setup-go@v1
-        with: 
+        with:
           go-version: ${{ fromJSON(steps.versions.outputs.tools).golang }}
 
       # ...
-``` 
+```
 
+## Inputs
+
+Supported GitHub action inputs:
+
+| Input Name                | Description                                                                       | Required            | Example values      |
+|:--------------------------|:----------------------------------------------------------------------------------|:-------------------:|:-------------------:|
+| working_directory         | Alternative directory to locate .tool-versions file; defaults to root directory   | `false`             |      work          |
