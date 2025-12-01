@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
-import {parseToolVersions, setPathToFile} from './asdf'
+import {parseToolVersions, getPathToFile} from './asdf'
 
 async function run(): Promise<void> {
   try {
-    const file = await setPathToFile(core.getInput('working_directory'))
+    const file = getPathToFile(core.getInput('working_directory'))
     core.debug(file)
     const tools = await parseToolVersions(file)
 

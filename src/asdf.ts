@@ -2,9 +2,7 @@ import fs from 'node:fs'
 import readline from 'node:readline'
 import path from 'node:path'
 
-export async function setPathToFile(
-  working_directory_path: string
-): Promise<string> {
+export function getPathToFile(working_directory_path: string): string {
   let path_to_file
   if (working_directory_path === '') {
     path_to_file = path.join(process.cwd(), '.tool-versions')
