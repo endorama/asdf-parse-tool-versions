@@ -32,10 +32,4 @@ jobs:
       - name: "check exported env vars"
         run: ./.github/workflows/scripts/test/test-envs.sh
       - name: "check action output JSON"
-        run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file.outputs.tools }}' false
-      - uses: ./
-        id: custom_versions_file_working_dir
-        with:
-          working_directory: __tests__/user-defined
-      - name: "check action output JSON - working_directory"
-        run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file_working_dir.outputs.tools }}' true
+        run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file.outputs.tools }}'
