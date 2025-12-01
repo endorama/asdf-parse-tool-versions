@@ -58,4 +58,4 @@ Supported GitHub action inputs:
 
 | Input Name                | Description                                                                       | Required            | Example values      |
 |:--------------------------|:----------------------------------------------------------------------------------|:-------------------:|:-------------------:|
-| working_directory         | Alternative directory to locate .tool-versions file; defaults to root directory   | `false`             |      work          |
+| working_directory         | Alternative directory to locate the .tool-versions file; defaults to root directory   | `false`             |      work          |
