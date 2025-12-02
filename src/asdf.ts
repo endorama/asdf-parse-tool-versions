@@ -9,7 +9,7 @@ export function getPathToFile(working_directory_path: string): string {
     // console.info('The working_directory input is empty; use default directory.');
   } else {
     path_to_file = path.join(working_directory_path, '.tool-versions')
-    // console.info('working_directory_path: ' + file_path)
+    // console.info('working_directory_path: ' + path_to_file)
   }
 
   return path_to_file

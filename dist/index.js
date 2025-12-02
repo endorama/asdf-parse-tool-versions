@@ -39,7 +39,7 @@ function getPathToFile(working_directory_path) {
     }
     else {
         path_to_file = node_path_1.default.join(working_directory_path, '.tool-versions');
-        // console.info('working_directory_path: ' + file_path)
+        // console.info('working_directory_path: ' + path_to_file)
     }
     return path_to_file;
 }
