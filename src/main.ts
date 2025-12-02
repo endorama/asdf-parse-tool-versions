@@ -1,10 +1,9 @@
 import * as core from '@actions/core'
-import { parseToolVersions } from './asdf'
-import path from 'node:path'
+import {parseToolVersions, getPathToFile} from './asdf'
 
 async function run(): Promise<void> {
   try {
-    const file = path.join(process.cwd(), '.tool-versions')
+    const file = getPathToFile(core.getInput('working_directory'))
     core.debug(file)
     const tools = await parseToolVersions(file)
 

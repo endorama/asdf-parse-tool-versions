@@ -1,7 +1,9 @@
 name: 'asdf-parse-tool-versions'
 description: 'Parse asdf.sh tool-versions file to reuse version information in GitHub Actions'
 author: 'Edoardo Tenani'
-# inputs:
+inputs:
+  working_directory:
+    required: false   # Defaults to root unless defined by user
 runs:
   using: 'node20'
   main: 'dist/index.js'
