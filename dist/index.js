@@ -26,9 +26,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPathToFile = getPathToFile;
 exports.parseToolVersions = parseToolVersions;
 const node_fs_1 = __importDefault(__nccwpck_require__(3024));
 const node_readline_1 = __importDefault(__nccwpck_require__(481));
+const node_path_1 = __importDefault(__nccwpck_require__(6760));
+function getPathToFile(working_directory_path) {
+    let path_to_file;
+    if (working_directory_path === '') {
+        path_to_file = node_path_1.default.join(process.cwd(), '.tool-versions');
+        // console.info('The working_directory input is empty; use default directory.');
+    }
+    else {
+        path_to_file = node_path_1.default.join(working_directory_path, '.tool-versions');
+        // console.info('working_directory_path: ' + path_to_file)
+    }
+    return path_to_file;
+}
 function parseToolVersions(file) {
     return __awaiter(this, void 0, void 0, function* () {
         // const content = fs.readFileSync(file, 'utf8')
@@ -114,18 +128,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.toEnvVarName = toEnvVarName;
 const core = __importStar(__nccwpck_require__(7484));
 const asdf_1 = __nccwpck_require__(1032);
-const node_path_1 = __importDefault(__nccwpck_require__(6760));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const file = node_path_1.default.join(process.cwd(), '.tool-versions');
+            const file = (0, asdf_1.getPathToFile)(core.getInput('working_directory'));
             core.debug(file);
             const tools = yield (0, asdf_1.parseToolVersions)(file);
             core.warning('All found versions are exported to env variables');

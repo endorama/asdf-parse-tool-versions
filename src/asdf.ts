@@ -1,5 +1,19 @@
 import fs from 'node:fs'
 import readline from 'node:readline'
+import path from 'node:path'
+
+export function getPathToFile(working_directory_path: string): string {
+  let path_to_file
+  if (working_directory_path === '') {
+    path_to_file = path.join(process.cwd(), '.tool-versions')
+    // console.info('The working_directory input is empty; use default directory.');
+  } else {
+    path_to_file = path.join(working_directory_path, '.tool-versions')
+    // console.info('working_directory_path: ' + path_to_file)
+  }
+
+  return path_to_file
+}
 
 export async function parseToolVersions(
   file: string
