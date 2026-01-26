@@ -20,23 +20,23 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: "copy tool file with test values"
-        run: cat __tests__/tool-versions > .tool-versions
+        run: "cat __tests__/tool-versions > .tool-versions"
       - uses: ./
         id: versions
       - name: "check exported env vars"
         run: ./.github/workflows/scripts/test/test-envs.sh
       - name: "check action output JSON"
         run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.versions.outputs.tools }}'
-  test-wd:
+  test-wd: # test with working_directory argument
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: "copy tool file with test values"
-        run: cat __tests__/tool-versions > __tests__/.tool-versions
+        run: "cat __tests__/tool-versions > __tests__/.tool-versions"
       - uses: ./
         id: custom_versions_file
         with:
-          working_directory: ./__tests__
+          working_directory: "./__tests__"
       - name: "check exported env vars"
         run: ./.github/workflows/scripts/test/test-envs.sh
       - name: "check action output JSON"
