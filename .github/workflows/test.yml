@@ -19,17 +19,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: "copy tool file with test values"
+        run: "cat __tests__/tool-versions > .tool-versions"
       - uses: ./
         id: versions
-
-      - run: echo "${{ env.NODEJS_VERSION }}"
-      - run: echo "${{ fromJSON(steps.versions.outputs.tools).nodejs }}"
-
-      - name: "override tool file with test values"
-        run: cat __tests__/tool-versions > .tool-versions
+      - name: "check exported env vars"
+        run: ./.github/workflows/scripts/test/test-envs.sh
+      - name: "check action output JSON"
+        run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.versions.outputs.tools }}'
+  test-wd: # test with working_directory argument
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: "copy tool file with test values"
+        run: "cat __tests__/tool-versions > __tests__/.tool-versions"
       - uses: ./
         id: custom_versions_file
+        with:
+          working_directory: "./__tests__"
       - name: "check exported env vars"
         run: ./.github/workflows/scripts/test/test-envs.sh
       - name: "check action output JSON"
         run: ./.github/workflows/scripts/test/test-json.sh '${{ steps.custom_versions_file.outputs.tools }}'
+
