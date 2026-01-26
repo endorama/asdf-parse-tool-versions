@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: "copy tool file with test values"
+        run: cat __tests__/tool-versions > __tests__/.tool-versions
       - uses: ./
         id: custom_versions_file
         with:
