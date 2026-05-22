@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "description": "Parse asdf.sh tool-versions file to reuse version information in GitHub Actions",
+  "type": "module",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,7 +11,7 @@
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
@@ -26,16 +27,16 @@
   "author": "Edoardo Tenani",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "2.0.2"
+    "@actions/core": "3.0.1"
   },
   "devDependencies": {
-    "@types/node": "^25.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
-    "@typescript-eslint/parser": "^8.53.1",
+    "@types/node": "^25.9.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
     "@vercel/ncc": "^0.38.4",
     "eslint": "^8.57.0",
     "eslint-plugin-github": "^5.0.2",
-    "eslint-plugin-jest": "^29.12.1",
+    "eslint-plugin-jest": "^29.15.2",
     "jest": "^30.2.0",
     "js-yaml": "^4.1.1",
     "prettier": "3.8.1",

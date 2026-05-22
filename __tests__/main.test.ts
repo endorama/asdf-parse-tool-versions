@@ -1,6 +1,6 @@
 import {expect, test} from '@jest/globals'
 
-import {toEnvVarName} from '../src/main'
+import {toEnvVarName} from '../src/main.js'
 
 test('toEnvVarName converts tool names to environment variable names', () => {
   expect(toEnvVarName('golang')).toBe('GOLANG_VERSION')
