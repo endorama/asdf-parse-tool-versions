@@ -10,7 +10,7 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set Node.js 24.x
         uses: actions/setup-node@v6
         with:
@@ -22,7 +22,7 @@ jobs:
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "copy tool file with test values"
         run: "cat __tests__/tool-versions > .tool-versions"
       - uses: ./
@@ -34,7 +34,7 @@ jobs:
   test-wd: # test with working_directory argument
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "copy tool file with test values"
         run: "cat __tests__/tool-versions > __tests__/.tool-versions"
       - uses: ./
