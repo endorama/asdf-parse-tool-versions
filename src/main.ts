@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import {parseToolVersions, getPathToFile} from './asdf'
+import {parseToolVersions, getPathToFile} from './asdf.js'
 
 async function run(): Promise<void> {
   try {

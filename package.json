@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "description": "Parse asdf.sh tool-versions file to reuse version information in GitHub Actions",
+  "type": "module",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,7 +11,7 @@
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {

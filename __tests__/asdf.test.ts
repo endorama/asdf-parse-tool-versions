@@ -1,10 +1,12 @@
 import * as path from 'node:path'
 import {expect, test} from '@jest/globals'
 
-import {getPathToFile, parseToolVersions} from '../src/asdf'
+import {getPathToFile, parseToolVersions} from '../src/asdf.js'
 
 test('parseToolVersions correctly parses a file', async () => {
-  const tools = await parseToolVersions(path.join(__dirname, 'tool-versions'))
+  const tools = await parseToolVersions(
+    path.join(import.meta.dirname, 'tool-versions')
+  )
 
   // console.log(tools)
   expect(tools.size).toBe(4)
